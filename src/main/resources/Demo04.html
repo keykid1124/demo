@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app=angular.module('myApp',[]);
+        //定义控制器
+        app.controller('myController',function ($scope) {
+            $scope.add=function () {
+                return parseInt($scope.a) + parseInt($scope.b);
+            }
+        });
+    </script>
+</head>
+<!--ng-app 是angularjs的根元素，表示它的范围-->
+<body ng-app="myApp" ng-controller="myController">
+    a: <input ng-model="a"><br>
+    b: <input ng-model="b">
+    结果：{{add()}}
+</body>
+</html>

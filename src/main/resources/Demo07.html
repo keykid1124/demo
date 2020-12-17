@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组对象遍历</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app=angular.module('myApp',[]);
+        //定义控制器
+        app.controller('myController',function ($scope) {
+          $scope.list=[{'name':'lucy','age':18,'score':100},
+              {'name':'asd','age':14,'score':100},
+              {'name':'lufdscy','age':17,'score':100},
+              {'name':'ludscy','age':19,'score':100},
+              {'name':'lucadsy','age':10,'score':100},];//元素不能重复
+        });
+    </script>
+</head>
+<!--ng-app 是angularjs的根元素，表示它的范围-->
+<body ng-app="myApp" ng-controller="myController">
+    <table>
+        <tr>
+            <td>序号</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>分数</td>
+        </tr>
+
+        <tr ng-repeat="pojo in list">
+            <td>{{$index+1}}</td>
+            <td>{{pojo.name}}</td>
+            <td>{{pojo.age}}</td>
+            <td>{{pojo.score}}</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>猜猜吧</title>
+    <!--<script src="js/angular.min.js"></script>-->
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app=angular.module('myApp',[]);
+        //定义控制器
+        app.controller('myController',function ($scope,$http) {//$scope定义方法名变量名
+            $scope.time=0;
+            $scope.hid=true;
+            $scope.yincan=false;
+            $scope.str="开始游戏";
+            $scope.sst=true;
+            $scope.img=true;
+            $scope.imgss=false;
+           $scope.start=function(){
+               $http.get('/start.do').success(
+                   function (response) {
+                       $scope.random=response;
+                       $scope.w="";
+                       $scope.yincan=true;
+                       $scope.sst=false;
+                       $scope.str="重新开始";
+                       $scope.hid=true;
+                       $scope.img=true;
+                       $scope.imgss=false;
+                       $scope.person.mes="";
+
+
+
+                   })
+           }
+            $scope.c=0;
+            $scope.b=100;
+            $scope.person={b:'',c:'Doe',mes:"",name:""}
+           $scope.test=function () {
+
+               $scope.time++;
+               $http.get('/test.do?number='+$scope.number+'&random='+$scope.random+'&name='+$scope.name
+                   +'&time='+$scope.time+'&c='+$scope.c+'&b='+$scope.b).success(
+                   function (response) {
+                    $scope.person=response;
+                    $scope.c=$scope.person.c;
+                    $scope.b=$scope.person.b;
+                       if ($scope.time==5){
+                           $scope.hid=false;
+                       }else {
+                           $scope.hid=true;
+                       }
+                       if ($scope.random==$scope.number) {
+                           $scope.img=false;
+                           $scope.imgss=true;
+                       }
+
+
+               })
+           }
+            $scope.result=function () {
+                $scope.w=$scope.random;
+            }
+        });
+
+    </script>
+
+</head>
+<!--ng-app 是angularjs的根元素，表示它的范围-->
+<body ng-app="myApp" ng-controller="myController" >
+                <div ng-hide="yincan"><h2 style="align-content: center">请问怎么称呼</h2><input type="text"ng-model="name"  placeholder="请输入"><br></div>
+                <button ng-click="start()">{{str}}</button><br>
+        <div ng-hide="imgss">
+
+            <span style="font-family: 仿宋" ><b>小{{name}}同学你一共有5次机会哦！！</b></span><br>
+            <button ng-click="result()"> 答案在这里哦</button>
+            {{w}}
+            <br>
+            <input type="text" ng-model="number" placeholder="请输入"><br>
+            <div ><button ng-click="test()" ng-if="hid">ok</button><br></div>
+            <b>{{person.mes}}</b>
+        </div>
+        <img src="img/1.jpg" ng-hide="img">
+
+
+</div>
+
+
+
+
+</body>
+</html>
