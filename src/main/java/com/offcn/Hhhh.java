@@ -16,7 +16,7 @@ public class Hhhh {
         // 显示窗口
         frame.pack();
         frame.setVisible(true);
-
+        System.out.println();
     }
 
 }
